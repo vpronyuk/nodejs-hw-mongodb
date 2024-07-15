@@ -20,3 +20,5 @@ async function initMongoConnection() {
 }
 
 export { initMongoConnection };
+
+// mongodb+srv://vpronyuk:M4X2u3him9p6pyEN@cluster0.ry0xppa.mongodb.net/
