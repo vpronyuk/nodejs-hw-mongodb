@@ -19,23 +19,28 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 const router = Router();
 
 router.get('/contacts', ctrlWrapper(getContactsController));
+
 router.get(
   '/contacts/:contactId',
   ctrlWrapper(getContactByIdController),
   isValidId,
 );
+
 router.post(
   '/contacts',
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
+
 router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
+
 router.put(
   '/contacts/:contactId',
   validateBody(updateContactSchema),
   ctrlWrapper(upsertContactController),
   isValidId,
 );
+
 router.patch(
   '/contacts/:contactId',
   validateBody(updateContactSchema),
