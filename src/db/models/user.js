@@ -4,16 +4,16 @@ const usersSchema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
   },
   {
@@ -21,5 +21,11 @@ const usersSchema = new Schema(
     versionKey: false,
   },
 );
+
+usersSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
 
 export const User = model('users', usersSchema);
