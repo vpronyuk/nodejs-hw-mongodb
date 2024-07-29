@@ -14,6 +14,7 @@ import {
   updateContactSchema,
 } from '../validation/contacts.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
@@ -47,5 +48,8 @@ router.patch(
   ctrlWrapper(patchContactController),
   isValidId,
 );
+
+router.use(authenticate);
+router.get('/', ctrlWrapper(getContactsController));
 
 export default router;
