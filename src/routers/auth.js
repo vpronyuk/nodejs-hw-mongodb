@@ -10,23 +10,30 @@ import {
 } from '../controllers/auth.js';
 
 import { validateBody } from '../middlewares/validateBody.js';
+import { authenticate } from '../middlewares/authenticate.js';
+
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
 
 router.post(
-  '/auth/register',
+  '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
 
 router.post(
-  '/auth/login',
+  '/login',
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
 
-router.post('/auth/logout', ctrlWrapper(logoutUserController));
-router.post('/auth/refresh', ctrlWrapper(refreshUserSessionController));
+router.post('/logout', authenticate, ctrlWrapper(logoutUserController));
+
+router.post(
+  '/refresh',
+  authenticate,
+  ctrlWrapper(refreshUserSessionController),
+);
 
 export default router;
