@@ -42,15 +42,12 @@ const isFavouriteSchema = Joi.boolean().messages({
   'boolean.base': '{#label} should be a boolean',
 });
 
-const userIdSchema = Joi.string().required();
-
 export const createContactSchema = Joi.object({
   name: nameSchema,
   phoneNumber: phoneNumberSchema,
   email: emailSchema,
   isFavourite: isFavouriteSchema,
   contactType: contactTypeSchema,
-  userId: userIdSchema,
 });
 
 export const updateContactSchema = Joi.object({
