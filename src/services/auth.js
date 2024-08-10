@@ -1,12 +1,16 @@
+import path from 'node:path';
+import fs from 'node:fs/promises';
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
+import handlebars from 'handlebars';
 
 import {
   ACCESS_TOKEN_TTL,
   REFRESH_TOKEN_TTL,
   SMTP,
+  TEMPLATE_DIR,
 } from '../constants/index.js';
 
 import { env } from '../utils/env.js';
@@ -115,7 +119,7 @@ export const requestResetToken = async (email) => {
   const resetToken = jwt.sign(
     {
       sub: user._id,
-      email,
+      email: user.email,
     },
     env('JWT_SECRET'),
     {
@@ -123,10 +127,19 @@ export const requestResetToken = async (email) => {
     },
   );
 
+  const templateFile = path.join(TEMPLATE_DIR, 'reset-password-email.html');
+  const templateSourse = await fs.readFile(templateFile, { encoding: 'utf-8' });
+  const template = handlebars.compile(templateSourse);
+
+  const html = template({
+    name: user.name,
+    link: `${env('APP_DOMAIN')}/request-reset-email?token=${resetToken}`,
+  });
+
   await sendEmail({
     from: env(SMTP.FROM),
     to: email,
     subject: 'Reset your password',
-    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+    html,
   });
 };

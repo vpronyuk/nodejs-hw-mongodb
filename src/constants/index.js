@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 export const SORT_ORDER = {
   ASC: 'asc',
   DESC: 'desc',
@@ -14,3 +16,5 @@ export const SMTP = {
   PASSWORD: 'SMTP_PASSWORD',
   FROM: 'SMTP_FROM',
 };
+
+export const TEMPLATE_DIR = path.resolve('src', 'templates');
