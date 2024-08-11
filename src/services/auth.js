@@ -8,9 +8,11 @@ import handlebars from 'handlebars';
 
 import {
   ACCESS_TOKEN_TTL,
+  APP_DOMAIN,
+  JWT_SECRET,
   REFRESH_TOKEN_TTL,
   SMTP,
-  TEMPLATE_DIR,
+  TEMPLATES_DIR,
 } from '../constants/index.js';
 
 import { env } from '../utils/env.js';
@@ -121,34 +123,43 @@ export const requestResetToken = async (email) => {
       sub: user._id,
       email: user.email,
     },
-    env('JWT_SECRET'),
+    env(JWT_SECRET),
     {
       expiresIn: '15m',
     },
   );
 
-  const templateFile = path.join(TEMPLATE_DIR, 'reset-password-email.html');
+  const templateFile = path.join(TEMPLATES_DIR, 'reset-password-email.html');
   const templateSourse = await fs.readFile(templateFile, { encoding: 'utf-8' });
   const template = handlebars.compile(templateSourse);
 
   const html = template({
     name: user.name,
-    link: `${env('APP_DOMAIN')}/request-reset-email?token=${resetToken}`,
+    link: `${env(APP_DOMAIN)}/request-reset-email?token=${resetToken}`,
   });
 
-  await sendEmail({
-    from: env(SMTP.FROM),
-    to: email,
-    subject: 'Reset your password',
-    html,
-  });
+  try {
+    await sendEmail({
+      from: env(SMTP.FROM),
+      to: email,
+      subject: 'Reset your password',
+      html,
+    });
+  } catch (err) {
+    if (err) {
+      throw createHttpError(
+        500,
+        'Failed to send the email, please try again later.',
+      );
+    }
+  }
 };
 
 export const resetPassword = async (payload) => {
   let entries;
 
   try {
-    entries = jwt.verify(payload.token, env('JWT_SECRET'));
+    entries = jwt.verify(payload.token, env(JWT_SECRET));
   } catch (err) {
     if (err instanceof Error) throw createHttpError(401, err.message);
     throw err;
