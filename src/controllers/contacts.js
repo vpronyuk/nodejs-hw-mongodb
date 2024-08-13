@@ -58,6 +58,10 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const data = { ...req.body, userId: req.user._id };
+  const photo = req.file;
+  if (photo) {
+    data.photo = await saveFileToCloudinary(photo);
+  }
   const contact = await createContact(data);
 
   res.status(201).json({
@@ -82,10 +86,29 @@ export const deleteContactController = async (req, res, next) => {
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const userId = req.user._id;
+  const photo = req.file;
+  let photoUrl;
 
-  const result = await updateContact(contactId, userId, req.body, {
-    upsert: true,
-  });
+  if (photo) {
+    if (env(ENABLE_CLOUDINARY) === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = await updateContact(
+    contactId,
+    userId,
+    {
+      ...req.body,
+      photo: photoUrl,
+    },
+    {
+      upsert: true,
+    },
+  );
+
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
     return;
