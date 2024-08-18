@@ -29,25 +29,25 @@ parameters:
       enum: ['asc', 'desc']
       example: 'asc'
   - in: query
-    name: sortBy
+    name: filter
     schema:
       type: string
-      example: 'name'
-  - in: query
-    name: phoneNumber
-    schema:
-      type: string
-      example: '+3800000012'
-  - in: query
-    name: email
-    schema:
-      type: string
-      example: 'user@gmail.com'
-  - in: query
-    name: isFavourite
-    schema:
-      type: string
-      example: 'false'
+      example: 'contactType'
+  # - in: query
+  #   name: phoneNumber
+  #   schema:
+  #     type: string
+  #     example: '+3800000012'
+  # - in: query
+  #   name: email
+  #   schema:
+  #     type: string
+  #     example: 'user@gmail.com'
+  # - in: query
+  #   name: isFavourite
+  #   schema:
+  #     type: string
+  #     example: 'false'
   - in: query
     name: contactType
     schema:
@@ -105,5 +105,5 @@ responses:
                 hasPreviousPage:
                   type: boolean
                   example: true
-  '401':
-    $ref:
+  '404':
+    $ref: ..\..\components\responses\404.yaml

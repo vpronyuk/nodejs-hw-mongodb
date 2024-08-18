@@ -1,19 +1,22 @@
 tags:
   - Contacts
-summary: Create contact
-operationId: createContact
-description: 'Create a contact with payload'
+summary: Patch contact by id
+operationId: patchContact
+description: 'Patch contact by id'
 security:
   - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: 66b28507c5bf28b2ded9ce20
 requestBody:
   content:
     multipart/form-data:
       schema:
         type: object
-        required:
-          - name
-          - phoneNumber
-          - contactType
         properties:
           name:
             description: "Contact's name"
@@ -36,17 +39,13 @@ requestBody:
             type: string
             enum: ['work', 'home', 'personal']
             example: personal
-          userId:
-            description: "Parent's id"
-            type: string
-            example: 66b28507c5bf28b2ded9ce20
           photo:
             description: "Contact's photo link"
             type: string
             example: 'http://yourserver/photo.jpg'
 responses:
-  '201':
-    description: 'Creates a contact'
+  '200':
+    description: 'Update contact by id'
     content:
       application/json:
         schema:
@@ -58,12 +57,12 @@ responses:
           properties:
             status:
               type: integer
-              example: 201
+              example: 200
             message:
               type: string
-              example: Successfully created a contact!
+              example: Successfully updated contact with id 66b28507c5bf28b2ded9ce20
             data:
               type: object
-              $ref: ..\..\components\schemas\contact.yaml
-  '401':
-    $ref: ..\..\components\responses\401.yaml
+              $ref: '../../../components/schemas/contact.yaml'
+  '404':
+    $ref: ..\..\..\components\responses\404.yaml
