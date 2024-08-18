@@ -1,0 +1,31 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+  - password
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: 66b28507c5bf28b2ded9ce20
+  name:
+    description: "User's name"
+    type: string
+    example: 'Mike Tyson'
+  email:
+    description: "User's email"
+    type: string
+    example: 'mtyson@gmail.com'
+  password:
+    description: "User's password"
+    type: string
+    example: 54dfgvd57a!q
+  createdAt:
+    description: 'The data of created a new user'
+    type: string
+    example: '2024-08-10T22:12:51.663Z'
+  updatedAt:
+    description: 'The data of updated a new user'
+    type: string
+    example: '2024-08-12T10:24:07.613Z'
