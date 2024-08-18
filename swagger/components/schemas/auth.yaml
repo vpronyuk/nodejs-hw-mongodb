@@ -8,15 +8,15 @@ properties:
   _id:
     description: "User's id"
     type: string
-    example: 66b28507c5bf28b2ded9ce20
+    example: 66af910dc7ef533858f149ff
   name:
     description: "User's name"
     type: string
-    example: 'Mike Tyson'
+    example: 'Lisa Grant'
   email:
     description: "User's email"
     type: string
-    example: 'mtyson@gmail.com'
+    example: 'lgrant@gmail.com'
   password:
     description: "User's password"
     type: string

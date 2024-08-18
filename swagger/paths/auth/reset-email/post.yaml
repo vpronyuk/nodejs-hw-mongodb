@@ -24,7 +24,7 @@ requestBody:
             example: 'asgfhddFR4'
 responses:
   '200':
-    description: 'Request for reset password was succesfully sent to email'
+    description: 'Reset password email was succesfully sent'
     content:
       application/json:
         schema:
@@ -39,7 +39,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Request for reset password was succesfully sent to user email
+              example: Reset password email was succesfully sent
             data:
               type: object
 

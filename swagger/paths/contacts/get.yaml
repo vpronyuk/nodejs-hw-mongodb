@@ -33,21 +33,6 @@ parameters:
     schema:
       type: string
       example: 'contactType'
-  # - in: query
-  #   name: phoneNumber
-  #   schema:
-  #     type: string
-  #     example: '+3800000012'
-  # - in: query
-  #   name: email
-  #   schema:
-  #     type: string
-  #     example: 'user@gmail.com'
-  # - in: query
-  #   name: isFavourite
-  #   schema:
-  #     type: string
-  #     example: 'false'
   - in: query
     name: contactType
     schema:

@@ -13,11 +13,20 @@ properties:
   name:
     description: "Contact's name"
     type: string
-    example: 'Mike Tyson'
+    example: 'David Born'
   phoneNumber:
     description: "Contact's phone number"
     type: string
     example: '+38097000001'
+  email:
+    description: "Contact's email"
+    type: string
+    example: dborn@gmail.com
+  isFavourite:
+    description: "Contact's favourite"
+    type: boolean
+    example: false
+    default: false
   contactType:
     description: "Contact's type"
     type: string
@@ -25,6 +34,10 @@ properties:
     example: personal
     default: personal
   userId:
-    description: "Parent's id"
+    description: "User's id"
     type: string
-    example: 66b28507c5bf28b2ded9ce20
+    example: 66af910dc7ef533858f149ff
+  photo:
+    description: "Link to contact's photo"
+    type: string
+    example: 'https://res.cloudinary.com/dkj9eucrq/image/upload/v1723485751/pf2kje9xneghc8cexjsb.jpg'

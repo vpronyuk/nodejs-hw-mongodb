@@ -18,7 +18,7 @@ requestBody:
           name:
             description: "Contact's name"
             type: string
-            example: 'Mike Tyson'
+            example: 'David Born'
           phoneNumber:
             description: "Contact's phone number"
             type: string
@@ -26,7 +26,7 @@ requestBody:
           email:
             description: "Contact's email"
             type: string
-            example: 'contact@gmail.com'
+            example: 'dborn@gmail.com'
           isFavourite:
             description: 'Is contact favourite?'
             type: boolean
@@ -43,7 +43,7 @@ requestBody:
           photo:
             description: "Contact's photo link"
             type: string
-            example: 'http://yourserver/photo.jpg'
+            example: 'https://res.cloudinary.com/dkj9eucrq/image/upload/v1723485751/pf2kje9xneghc8cexjsb.jpg'
 responses:
   '201':
     description: 'Creates a contact'
